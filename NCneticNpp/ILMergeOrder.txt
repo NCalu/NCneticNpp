@@ -1,5 +1,0 @@
-﻿NCneticNpp.dll
-NCneticCore.dll
-NCneticCore.View.dll
-OpenTK.dll
-OpenTK.GLControl.dll
