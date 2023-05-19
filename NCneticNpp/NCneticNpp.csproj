@@ -65,13 +65,13 @@
     <StartProgram Condition="'$(Platform)'=='x86'">$(MSBuildProgramFiles32)\Notepad++\notepad++.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MSBuild.ILMerge.Task">
+      <Version>2.0.0-pre501</Version>
+    </PackageReference>
     <PackageReference Include="OpenTK" Version="3.1.0" PrivateAssets="none" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTK.GLControl" Version="3.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ILMerge" Version="3.0.29" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="NCneticCore">
@@ -130,7 +130,7 @@
   <Import Project="$(MSBuildProjectDirectory)\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
   <Target Name="CopyFile" BeforeTargets="Compile">
     <Copy SourceFiles="$(NuGetPackageRoot)\opentk.glcontrol\3.1.0\lib\net20\OpenTK.GLControl.dll" DestinationFolder="obj\x64\Debug" />
-	<Copy SourceFiles="$(NuGetPackageRoot)\opentk\3.1.0\lib\net20\OpenTK.dll" DestinationFolder="obj\x64\Debug" />
+    <Copy SourceFiles="$(NuGetPackageRoot)\opentk\3.1.0\lib\net20\OpenTK.dll" DestinationFolder="obj\x64\Debug" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
