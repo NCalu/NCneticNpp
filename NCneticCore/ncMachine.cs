@@ -96,7 +96,7 @@ namespace NCneticCore
             string AllowWhiteSpacesRegex = "\\s*\t# ALLOW SPACES";
 
             string DoubleRegex = "\\s*[+-]?[0-9.\\s]+";
-            string PositiveDoubleRegex = "[0-9.\\s]+";
+            //string PositiveDoubleRegex = "[0-9.\\s]+";
             string PositiveIntRegex = "[0-9\\s]+";
             string IDRegex = "[1-9]([0-9]+)?";
 
