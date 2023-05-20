@@ -38,6 +38,16 @@
       <Output TaskParameter="Include"  ItemName="MergedAssemblies"/>
     </CreateItem>
 	
+	<!-- all NOT copy local assemblies (except from explicitly specified merged packages) so we use their directories as library path -->
+    <CreateItem Include="@(ReferencePath)" Condition=" '%(ReferencePath.CopyLocal)' == 'false' AND ('%(ReferencePath.NuGetPackageId)' == ''  OR !$(ILMergeMergedPackages.Contains('%(ReferencePath.NuGetPackageId)')))">
+      <Output TaskParameter="Include" ItemName="UnmergedAssemblies"/>
+    </CreateItem>
+	
+	<!-- all NOT copy local assemblies from explicitly specified merged packages -->
+    <CreateItem Include="@(ReferencePath)" Condition=" '%(ReferencePath.CopyLocal)' == 'false' AND '%(ReferencePath.NuGetPackageId)' != '' AND $(ILMergeMergedPackages.Contains('%(ReferencePath.NuGetPackageId)'))">
+      <Output TaskParameter="Include" ItemName="MergedPackages"/>
+    </CreateItem>
+	
 	<!-- OpenTK 3.1.0 -->
 	<CreateItem Include="$(NuGetPackageRoot)\opentk\3.1.0\lib\net20\OpenTK.dll">
       <Output TaskParameter="Include" ItemName="OpenTK"/>
@@ -49,7 +59,7 @@
     </CreateItem>
 
     <PropertyGroup>
-      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(OpenTK);@(GLcontols)</MergedAssemblies>
+      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(MergedPackages->'%(FullPath)');@(OpenTK);@(GLcontols)</MergedAssemblies>
     </PropertyGroup>
     
     <PropertyGroup>
