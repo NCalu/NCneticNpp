@@ -124,7 +124,6 @@ namespace NCneticNpp
                 ncMove sel = job.MoveList.Find(x => x.MoveGuid == ea.guid);
                 if (sel != null)
                 {
-                    view.SelectMove(sel);
                     SelChanged?.Invoke(this, new SelChangedEventArgs(sel.Line));
                 }
                 else
