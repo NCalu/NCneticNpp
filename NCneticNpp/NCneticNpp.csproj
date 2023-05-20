@@ -128,12 +128,15 @@
       <Version>3.1.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ILMerge.props" />
+    <None Include="ILMerge.targets" />
+    <Resource Include="ILMergeOrder.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
-  <Target Name="CopyFile" BeforeTargets="Compile">
-    <Copy SourceFiles="$(NuGetPackageRoot)\opentk.glcontrol\3.1.0\lib\net20\OpenTK.GLControl.dll" DestinationFolder="obj\x64\Debug" />
-    <Copy SourceFiles="$(NuGetPackageRoot)\opentk\3.1.0\lib\net20\OpenTK.dll" DestinationFolder="obj\x64\Debug" />
-  </Target>
+  <Import Project="ILMerge.props" />
+  <Import Project="ILMerge.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
