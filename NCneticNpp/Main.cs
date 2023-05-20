@@ -201,7 +201,12 @@ namespace NCneticNpp
 
                     if (sbFile.ToString() != frmMyDlg.currentFile)
                     {
-                        return;
+                        if (ea.GetLine() == -1)
+                        {
+                            return;
+                        }
+                        IntPtr filePathPtr = Marshal.StringToHGlobalUni(frmMyDlg.currentFile);
+                        Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SWITCHTOFILE, IntPtr.Zero, filePathPtr);
                     }
 
                     if (ea.GetLine() == -1)
@@ -210,9 +215,15 @@ namespace NCneticNpp
                     }
                     else
                     {
-                        int targetPos = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_POSITIONFROMLINE, ea.GetLine(), 0);
-                        Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GOTOPOS, targetPos, 0);
                         frmMyDlg.SetSelection(ea.GetLine());
+
+                        int currentPos = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GETCURRENTPOS, 0, 0);
+                        int currentLine = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_LINEFROMPOSITION, currentPos, 0);
+                        if (currentLine != ea.GetLine())
+                        {
+                            int targetPos = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_POSITIONFROMLINE, ea.GetLine(), 0);
+                            Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GOTOPOS, targetPos, 0);
+                        }
                     }
                 });
 
@@ -272,10 +283,7 @@ namespace NCneticNpp
             Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_GETFULLCURRENTPATH, Win32.MAX_PATH, sbCurFile);
 
             frmMyDlg.LoadFile(sbCurFile.ToString(), textAnsi, mach, cam);
-
-            int currentPos = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GETCURRENTPOS, 0, 0);
-            int currentLine = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_LINEFROMPOSITION, currentPos, 0);
-            frmMyDlg.SetSelection(currentLine);
+            frmMyDlg.SetSelection(-1);
             frmMyDlg.SetSelection(new ncMove());
 
             if (styling) { StyleVisible(); }
