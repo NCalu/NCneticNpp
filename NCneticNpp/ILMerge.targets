@@ -32,40 +32,24 @@
     <PropertyGroup>
       <ILMergeMergedPackages>@(MergePackage)</ILMergeMergedPackages>
     </PropertyGroup>
-    <Message Text="Transitive merge" Importance="high" Condition="$(ILMergeTransitive) == 'true'" />
-    <Message Text="Merged packages: $(ILMergeMergedPackages)" Importance="high" Condition="$(ILMergeMergedPackages) != ''"/>
 
     <!-- all copy local assemblies referenced from this project that go to the executable except the main one-->
     <CreateItem Include="@(ReferencePath)" Condition=" '%(CopyLocal)' == 'true' ">
       <Output TaskParameter="Include"  ItemName="MergedAssemblies"/>
     </CreateItem>
-
-    <!-- all copy local dependency assemblies -->
-    <CreateItem Include="@(ReferenceDependencyPaths)" Condition=" '%(CopyLocal)' == 'true' ">
-      <Output TaskParameter="Include" ItemName="MergedDependencies"/>
+	
+	<!-- OpenTK 3.1.0 -->
+	<CreateItem Include="$(NuGetPackageRoot)\opentk\3.1.0\lib\net20\OpenTK.dll">
+      <Output TaskParameter="Include" ItemName="OpenTK"/>
     </CreateItem>
-    
-    <!-- all NOT copy local assemblies from explicitly specified merged packages -->
-    <CreateItem Include="@(ReferencePath)" Condition=" '%(ReferencePath.CopyLocal)' == 'false' AND '%(ReferencePath.NuGetPackageId)' != '' AND $(ILMergeMergedPackages.Contains('%(ReferencePath.NuGetPackageId)'))">
-      <Output TaskParameter="Include" ItemName="MergedPackages"/>
-    </CreateItem>
-
-    <!-- all NOT copy local assemblies (except from explicitly specified merged packages) so we use their directories as library path -->
-    <CreateItem Include="@(ReferencePath)" Condition=" '%(ReferencePath.CopyLocal)' == 'false' AND ('%(ReferencePath.NuGetPackageId)' == ''  OR !$(ILMergeMergedPackages.Contains('%(ReferencePath.NuGetPackageId)')))">
-      <Output TaskParameter="Include" ItemName="UnmergedAssemblies"/>
+	
+	<!-- GLcontrols 3.1.0 -->
+	<CreateItem Include="$(NuGetPackageRoot)\opentk.glcontrol\3.1.0\lib\net20\OpenTK.GLControl.dll">
+      <Output TaskParameter="Include" ItemName="GLcontols"/>
     </CreateItem>
 
-    <!-- all content items marked as copy always or newest -->
-    <CreateItem Include="@(Content)" Condition=" '%(Content.CopyToOutputDirectory)' == 'Always' OR '%(Content.CopyToOutputDirectory)' == 'PreserveNewest' ">
-      <Output TaskParameter="Include"  ItemName="LocalContentFiles"/>
-    </CreateItem>
-
-    <!-- add the main assembly as the first one -->
-    <PropertyGroup Condition=" $(ILMergeTransitive) == 'true' ">
-      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(MergedDependencies->'%(FullPath)');@(MergedPackages->'%(FullPath)')</MergedAssemblies>
-    </PropertyGroup>
-    <PropertyGroup Condition=" $(ILMergeTransitive) == 'false' OR $(ILMergeTransitive) == '' ">
-      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(MergedPackages->'%(FullPath)')</MergedAssemblies>
+    <PropertyGroup>
+      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(OpenTK);@(GLcontols)</MergedAssemblies>
     </PropertyGroup>
     
     <PropertyGroup>
