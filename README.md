@@ -25,4 +25,4 @@ Additional information
 
 NCnetic website: https://ncnetic.com
 
-A forum in french where the basic NCnetic features has been discussed (in french): https://www.usinages.com/threads/editeur-gcode.142856/
+A forum where the basic NCnetic features has been discussed (in french): https://www.usinages.com/threads/editeur-gcode.142856/
