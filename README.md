@@ -2,6 +2,10 @@
 
 A Notepad++ plugin to plot numerical control files directly in the best code editor.
 
+<br><br>
+![NCneticNpp](NCneticNpp.png)
+<br><br>
+
 How it works?
 -------------
 
