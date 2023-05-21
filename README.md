@@ -29,3 +29,9 @@ Additional information
 NCnetic website: https://ncnetic.com
 
 A forum where the basic NCnetic features has been discussed (in french): https://www.usinages.com/threads/editeur-gcode.142856/
+
+Thanks to all contributors of the following projects :
+
+3d graphics module : https://github.com/opentk/opentk
+
+Notepad++ plugin template : https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net
