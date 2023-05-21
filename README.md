@@ -32,6 +32,6 @@ A forum where the basic NCnetic features has been discussed (in french): https:/
 
 Thanks to all contributors of the following projects :
 
-3d graphics module : https://github.com/opentk/opentk
+    * 3d graphics module : https://github.com/opentk/opentk
 
-Notepad++ plugin template : https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net
+    * Notepad++ plugin template : https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net
