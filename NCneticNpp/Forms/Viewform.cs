@@ -121,10 +121,13 @@ namespace NCneticNpp
 
             view.MoveSelected += new ncView.MoveSelectedkEventHandler((s,ea) =>
             {
-                ncMove sel = job.MoveList.Find(x => x.MoveGuid == ea.guid);
-                if (sel != null)
+                int selId = job.MoveList.FindIndex(x => x.MoveGuid == ea.guid);
+
+                if (selId >= 0 && selId < job.MoveList.Count)
                 {
-                    SelChanged?.Invoke(this, new SelChangedEventArgs(sel.Line));
+                    view.SelectMove(job.MoveList[selId]);
+                    SelChanged?.Invoke(this, new SelChangedEventArgs(job.MoveList[selId].Line));
+                    trackBar.Value = selId;
                 }
                 else
                 {
@@ -136,6 +139,7 @@ namespace NCneticNpp
             {
                 if (job.MoveList.Any() && trackBar.Value > 0 && trackBar.Value < job.MoveList.Count)
                 {
+                    view.SelectMove(job.MoveList[trackBar.Value]);
                     SelChanged?.Invoke(this, new SelChangedEventArgs(job.MoveList[trackBar.Value].Line));
                 }
             });
@@ -163,11 +167,20 @@ namespace NCneticNpp
 
         public void SetSelection(int line)
         {
+            ncMove sel = job.MoveList.Find(x => x.MoveGuid == view.SelGuid);
+            if (sel != null)
+            {
+                if (sel.Line == line)
+                {
+                    return;
+                }
+            }
+
             int selId = job.MoveList.FindIndex(x => x.Line == line);
 
             if (selId >= 0 && selId < job.MoveList.Count)
             {
-                ncMove sel = job.MoveList[selId];
+                sel = job.MoveList[selId];
 
                 currentLine = line;
                 view.SelectMove(sel);
