@@ -207,13 +207,21 @@ namespace NCneticNpp
                         {
                             return;
                         }
+
                         IntPtr filePathPtr = Marshal.StringToHGlobalUni(frmMyDlg.currentFile);
                         Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SWITCHTOFILE, IntPtr.Zero, filePathPtr);
+
+                        sbFile = new StringBuilder(Win32.MAX_PATH);
+                        Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_GETFULLCURRENTPATH, Win32.MAX_PATH, sbFile);
+                        if (sbFile.ToString() != frmMyDlg.currentFile)
+                        {
+                            return;
+                        }
                     }
 
                     if (ea.GetLine() == -1)
                     {
-                        frmMyDlg.SetSelection(new ncMove());
+                        frmMyDlg.ResetSelection();
                     }
                     else
                     {
@@ -288,7 +296,7 @@ namespace NCneticNpp
             currentPos = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GETCURRENTPOS, 0, 0);
             currentLine = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_LINEFROMPOSITION, currentPos, 0);
             frmMyDlg.SetSelection(currentLine);
-            frmMyDlg.SetSelection(new ncMove());
+            frmMyDlg.ResetSelection();
 
             if (styling) { StyleVisible(); }
         }
