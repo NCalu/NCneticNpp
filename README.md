@@ -34,4 +34,6 @@ A forum where the basic NCnetic features has been discussed (in french): https:/
 
 Notepad++ plugin template : https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net
 
+And last be not least, Notepad++ himself : https://github.com/notepad-plus-plus/notepad-plus-plus
+
 Thanks to all contributors of thoses projects!
