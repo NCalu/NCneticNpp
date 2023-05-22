@@ -36,4 +36,4 @@ Notepad++ plugin template : https://github.com/kbilsted/NotepadPlusPlusPluginPac
 
 And last be not least, Notepad++ himself : https://github.com/notepad-plus-plus/notepad-plus-plus
 
-Thanks to all contributors of thoses projects!
+Thanks to all contributors!
