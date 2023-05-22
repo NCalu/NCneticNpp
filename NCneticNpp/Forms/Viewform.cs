@@ -168,10 +168,12 @@ namespace NCneticNpp
         public void SetSelection(int line)
         {
             ncMove sel = job.MoveList.Find(x => x.MoveGuid == view.SelGuid);
+
             if (sel != null)
             {
                 if (sel.Line == line)
                 {
+                    DisplayProperties(sel);
                     return;
                 }
             }
@@ -190,107 +192,13 @@ namespace NCneticNpp
                     trackBar.Value = selId;
                 }
 
-                string sb;
-
-                // X *********************************************************************************************************************
-                sb = string.Empty;
-                sb = "X = " + sel.P.X.ToString("0.000", CultureInfo.InvariantCulture);
-                sb += " (" + sel.P0.X.ToString("0.000", CultureInfo.InvariantCulture);
-                if (sel.P.X - sel.P0.X < 0)
-                {
-                    sb += " - " + Math.Abs(sel.P.X - sel.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                else
-                {
-                    sb += " + " + Math.Abs(sel.P.X - sel.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                if (sel.Type == ncMove.MoveType.CircularCW || sel.Type == ncMove.MoveType.CircularCCW)
-                {
-                    sb += "; I = " + sel.C.X.ToString("0.000", CultureInfo.InvariantCulture);
-                    sb += " (" + sel.P0.X.ToString("0.000", CultureInfo.InvariantCulture);
-                    if (sel.C.X - sel.P0.X < 0)
-                    {
-                        sb += " - " + Math.Abs(sel.C.X - sel.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                    else
-                    {
-                        sb += " + " + Math.Abs(sel.C.X - sel.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                }
-                xStatusLabel.Text = sb;
-
-                // Y *********************************************************************************************************************
-                sb = string.Empty;
-                sb += "Y = " + sel.P.Y.ToString("0.000", CultureInfo.InvariantCulture);
-                sb += " (" + sel.P0.Y.ToString("0.000", CultureInfo.InvariantCulture);
-                if (sel.P.Y - sel.P0.Y < 0)
-                {
-                    sb += " - " + Math.Abs(sel.P.Y - sel.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                else
-                {
-                    sb += " + " + Math.Abs(sel.P.Y - sel.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                if (sel.Type == ncMove.MoveType.CircularCW || sel.Type == ncMove.MoveType.CircularCCW)
-                {
-                    sb += "; J = " + sel.C.Y.ToString("0.000", CultureInfo.InvariantCulture);
-                    sb += " (" + sel.P0.Y.ToString("0.000", CultureInfo.InvariantCulture);
-                    if (sel.C.Y - sel.P0.Y < 0)
-                    {
-                        sb += " - " + Math.Abs(sel.C.Y - sel.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                    else
-                    {
-                        sb += " + " + Math.Abs(sel.C.Y - sel.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                }
-                yStatusLabel.Text = sb;
-
-                // Z *********************************************************************************************************************
-                sb = string.Empty;
-                sb += "Z = " + sel.P.Z.ToString("0.000", CultureInfo.InvariantCulture);
-                sb += " (" + sel.P0.Z.ToString("0.000", CultureInfo.InvariantCulture);
-                if (sel.P.Z - sel.P0.Z < 0)
-                {
-                    sb += " - " + Math.Abs(sel.P.Z - sel.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                else
-                {
-                    sb += " + " + Math.Abs(sel.P.Z - sel.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                }
-                if (sel.Type == ncMove.MoveType.CircularCW || sel.Type == ncMove.MoveType.CircularCCW)
-                {
-                    sb += "; K = " + sel.C.Z.ToString("0.000", CultureInfo.InvariantCulture);
-                    sb += " (" + sel.P0.Z.ToString("0.000", CultureInfo.InvariantCulture);
-                    if (sel.C.Z - sel.P0.Z < 0)
-                    {
-                        sb += " - " + Math.Abs(sel.C.Z - sel.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                    else
-                    {
-                        sb += " + " + Math.Abs(sel.C.Z - sel.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
-                    }
-                }
-                zStatusLabel.Text = sb;
-
-                // INFO ******************************************************************************************************************
-
-                sb = string.Empty;
-                sb += "L = " + sel.Length.ToString("0.000", CultureInfo.InvariantCulture);
-                if (sel.Type == ncMove.MoveType.CircularCW || sel.Type == ncMove.MoveType.CircularCCW)
-                {
-                    sb += "; R = " + sel.R.ToString("0.000", CultureInfo.InvariantCulture);
-                }
-                lrStatusLabel.Text = sb;
-
-                fStatusLabel.Text = "F = " + sel.F.ToString("0.000", CultureInfo.InvariantCulture);
-                sStatusLabel.Text = "S = " + sel.S.ToString("0.000", CultureInfo.InvariantCulture);
+                DisplayProperties(sel);
             }
         }
 
-        public void SetSelection(ncMove move)
+        public void ResetSelection()
         {
-            view.SelectMove(move);
+            view.SelectMove(new ncMove());
 
             trackBar.Value = 0;
 
@@ -300,6 +208,105 @@ namespace NCneticNpp
             lrStatusLabel.Text = "L = 0.000";
             fStatusLabel.Text = "F = 0.000";
             sStatusLabel.Text = "S = 0.000";
+        }
+
+        private void DisplayProperties(ncMove move)
+        {
+            string sb;
+
+            // X *********************************************************************************************************************
+            sb = string.Empty;
+            sb = "X = " + move.P.X.ToString("0.000", CultureInfo.InvariantCulture);
+            sb += " (" + move.P0.X.ToString("0.000", CultureInfo.InvariantCulture);
+            if (move.P.X - move.P0.X < 0)
+            {
+                sb += " - " + Math.Abs(move.P.X - move.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            else
+            {
+                sb += " + " + Math.Abs(move.P.X - move.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            if (move.Type == ncMove.MoveType.CircularCW || move.Type == ncMove.MoveType.CircularCCW)
+            {
+                sb += "; I = " + move.C.X.ToString("0.000", CultureInfo.InvariantCulture);
+                sb += " (" + move.P0.X.ToString("0.000", CultureInfo.InvariantCulture);
+                if (move.C.X - move.P0.X < 0)
+                {
+                    sb += " - " + Math.Abs(move.C.X - move.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+                else
+                {
+                    sb += " + " + Math.Abs(move.C.X - move.P0.X).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+            }
+            xStatusLabel.Text = sb;
+
+            // Y *********************************************************************************************************************
+            sb = string.Empty;
+            sb += "Y = " + move.P.Y.ToString("0.000", CultureInfo.InvariantCulture);
+            sb += " (" + move.P0.Y.ToString("0.000", CultureInfo.InvariantCulture);
+            if (move.P.Y - move.P0.Y < 0)
+            {
+                sb += " - " + Math.Abs(move.P.Y - move.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            else
+            {
+                sb += " + " + Math.Abs(move.P.Y - move.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            if (move.Type == ncMove.MoveType.CircularCW || move.Type == ncMove.MoveType.CircularCCW)
+            {
+                sb += "; J = " + move.C.Y.ToString("0.000", CultureInfo.InvariantCulture);
+                sb += " (" + move.P0.Y.ToString("0.000", CultureInfo.InvariantCulture);
+                if (move.C.Y - move.P0.Y < 0)
+                {
+                    sb += " - " + Math.Abs(move.C.Y - move.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+                else
+                {
+                    sb += " + " + Math.Abs(move.C.Y - move.P0.Y).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+            }
+            yStatusLabel.Text = sb;
+
+            // Z *********************************************************************************************************************
+            sb = string.Empty;
+            sb += "Z = " + move.P.Z.ToString("0.000", CultureInfo.InvariantCulture);
+            sb += " (" + move.P0.Z.ToString("0.000", CultureInfo.InvariantCulture);
+            if (move.P.Z - move.P0.Z < 0)
+            {
+                sb += " - " + Math.Abs(move.P.Z - move.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            else
+            {
+                sb += " + " + Math.Abs(move.P.Z - move.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+            }
+            if (move.Type == ncMove.MoveType.CircularCW || move.Type == ncMove.MoveType.CircularCCW)
+            {
+                sb += "; K = " + move.C.Z.ToString("0.000", CultureInfo.InvariantCulture);
+                sb += " (" + move.P0.Z.ToString("0.000", CultureInfo.InvariantCulture);
+                if (move.C.Z - move.P0.Z < 0)
+                {
+                    sb += " - " + Math.Abs(move.C.Z - move.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+                else
+                {
+                    sb += " + " + Math.Abs(move.C.Z - move.P0.Z).ToString("0.000", CultureInfo.InvariantCulture) + ")";
+                }
+            }
+            zStatusLabel.Text = sb;
+
+            // INFO ******************************************************************************************************************
+
+            sb = string.Empty;
+            sb += "L = " + move.Length.ToString("0.000", CultureInfo.InvariantCulture);
+            if (move.Type == ncMove.MoveType.CircularCW || move.Type == ncMove.MoveType.CircularCCW)
+            {
+                sb += "; R = " + move.R.ToString("0.000", CultureInfo.InvariantCulture);
+            }
+            lrStatusLabel.Text = sb;
+
+            fStatusLabel.Text = "F = " + move.F.ToString("0.000", CultureInfo.InvariantCulture);
+            sStatusLabel.Text = "S = " + move.S.ToString("0.000", CultureInfo.InvariantCulture);
         }
 
         public void SetCam(int cam)
