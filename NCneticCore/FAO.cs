@@ -584,36 +584,6 @@ namespace NCneticCore
 
         }
 
-        internal class BevelParams
-        {
-            #region enum
-            internal enum TangentMacro { Undefined, None, Tracking, ToPrevious, ToNext, ApplyToPrevious }
-            #endregion
-
-            #region fields
-            internal double AngleA;
-            internal double AngleB;
-            internal TangentMacro Tangent;
-            #endregion
-
-            #region constructors
-            internal BevelParams()
-            {
-                this.AngleA = Math.Sqrt(-1);
-                this.AngleB = Math.Sqrt(-1);
-                this.Tangent = TangentMacro.Undefined;
-            }
-            #endregion
-
-            #region methods
-            internal BevelParams Clone()
-            {
-                BevelParams NewBevelParams = (BevelParams)this.MemberwiseClone();
-                return NewBevelParams;
-            }
-            #endregion
-        }
-
         #endregion
 
         #region commands
