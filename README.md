@@ -1,4 +1,4 @@
-# NCneticNpp — CNC Gcode backplot/simulation plugin for Notepad++
+# NCneticNpp — Gcode CNC backplot/simulation plugin for Notepad++
 
 A Notepad++ plugin to plot numerical control files directly in the best code editor.
 <br><br>
