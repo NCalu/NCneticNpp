@@ -15,6 +15,7 @@ using NCneticCore.View;
 using System.Globalization;
 using System.Reflection.Emit;
 using OpenTK.Input;
+using OpenTK;
 
 namespace NCneticNpp
 {
@@ -155,14 +156,21 @@ namespace NCneticNpp
 
             job.Process(mach);
 
-            view.LoadJob(job);
+            progressBar.Style = ProgressBarStyle.Marquee;
 
-            SetCam(cam);
+            job.EndProcessing += new EventHandler((s, ea) =>
+            {
+                view.LoadJob(job);
 
-            trackBar.Minimum = 0;
-            trackBar.Maximum = job.MoveList.Count() - 1;
-            trackBar.Value = trackBar.Minimum;
-            trackBar.LargeChange = trackBar.Maximum / 20;
+                SetCam(cam);
+
+                trackBar.Minimum = 0;
+                trackBar.Maximum = job.MoveList.Count() - 1;
+                trackBar.Value = trackBar.Minimum;
+                trackBar.LargeChange = trackBar.Maximum / 20;
+
+                progressBar.Style = ProgressBarStyle.Continuous;
+            });
         }
 
         public void SetSelection(int line)

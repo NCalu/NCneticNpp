@@ -318,6 +318,7 @@ namespace NCneticNpp
             // **********************************************************************************************************************************
 
             int firstLine = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_GETFIRSTVISIBLELINE, 0, 0);
+            firstLine = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_DOCLINEFROMVISIBLE, firstLine, 0);
             int totLines = (int)Win32.SendMessage(PluginBase.nppData._scintillaMainHandle, SciMsg.SCI_LINESONSCREEN, 0, 0);
 
             int pos = 0;

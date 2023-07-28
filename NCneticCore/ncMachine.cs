@@ -108,7 +108,7 @@ namespace NCneticCore
             {
                 return
                 ModifiersRegEx + "\r\n" +
-                s + "\r\n" +
+                "^" + s + "\r\n" +
                 AllowWhiteSpacesRegex + "\r\n" +
                 DoubleRegex;
             }
@@ -215,6 +215,7 @@ namespace NCneticCore
                 Color = Color.FromArgb(128, 128, 0),
                 CmdName = "F",
                 Pattern = GetCoordsKeys("F"),
+                KeepIfFound = true,
                 Links = new List<ncLexerLink> { new ncLexerLink(DoubleRegex, ncLexerLink.CmdType.SetFeedRate) }
             };
             Lexer.LexerEntries.Add(entry.Clone());
@@ -224,6 +225,17 @@ namespace NCneticCore
                 Color = Color.FromArgb(128, 128, 0),
                 CmdName = "S",
                 Pattern = GetCoordsKeys("S"),
+                KeepIfFound = true,
+                Links = new List<ncLexerLink> { new ncLexerLink(DoubleRegex, ncLexerLink.CmdType.SetSpindleSpeed) }
+            };
+            Lexer.LexerEntries.Add(entry.Clone());
+
+            entry = new ncLexerEntry
+            {
+                Color = Color.FromArgb(128, 128, 0),
+                CmdName = "E",
+                Pattern = GetCoordsKeys("E"),
+                KeepIfFound = true,
                 Links = new List<ncLexerLink> { new ncLexerLink(DoubleRegex, ncLexerLink.CmdType.SetSpindleSpeed) }
             };
             Lexer.LexerEntries.Add(entry.Clone());
@@ -289,7 +301,7 @@ namespace NCneticCore
             {
                 return
                 ModifiersRegEx + "\r\n" +
-                s0 + "\t# GEOMETRIC FUNCTIONS CHAR" + "\r\n" +
+                "^" + s0 + "\t# GEOMETRIC FUNCTIONS CHAR" + "\r\n" +
                 AllowWhiteSpacesRegex + "\r\n" +
                 s1;
             }
@@ -479,7 +491,7 @@ namespace NCneticCore
             {
                 Color = Color.FromArgb(100, 50, 100),
                 CmdName = "Sub Call",
-                Pattern = ModifiersRegEx + "\r\n" + "M\t# MISC FUNCTIONS CHAR" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "98",
+                Pattern = ModifiersRegEx + "\r\n" + "^M\t# MISC FUNCTIONS CHAR" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "98",
                 Links = new List<ncLexerLink> { new ncLexerLink("", ncLexerLink.CmdType.SubCall) }
             };
             Lexer.LexerEntries.Add(entry.Clone());
@@ -488,7 +500,7 @@ namespace NCneticCore
             {
                 Color = Color.FromArgb(100, 50, 100),
                 CmdName = "Sub End",
-                Pattern = ModifiersRegEx + "\r\n" + "M\t# MISC FUNCTIONS CHAR" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "((30)|(99)|(0?2))",
+                Pattern = ModifiersRegEx + "\r\n" + "^M\t# MISC FUNCTIONS CHAR" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "((30)|(99)|(0?2))",
                 Links = new List<ncLexerLink> { new ncLexerLink("", ncLexerLink.CmdType.SubEnd) }
             };
             Lexer.LexerEntries.Add(entry.Clone());
@@ -497,7 +509,7 @@ namespace NCneticCore
             {
                 Color = Color.FromArgb(88, 155, 172),
                 CmdName = "Sub Start",
-                Pattern = ModifiersRegEx + "\r\n" + "O" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "[0-9]+",
+                Pattern = ModifiersRegEx + "\r\n" + "^O" + "\r\n" + AllowWhiteSpacesRegex + "\r\n" + "[0-9]+",
                 Links = new List<ncLexerLink> { new ncLexerLink("", ncLexerLink.CmdType.SubStart), new ncLexerLink(IDRegex, ncLexerLink.CmdType.SubName) }
             };
             Lexer.LexerEntries.Add(entry.Clone());

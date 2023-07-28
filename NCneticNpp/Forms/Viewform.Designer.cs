@@ -30,13 +30,14 @@
         {
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.yStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lrStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.xStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.yStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.zStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lrStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.glControl = new OpenTK.GLControl();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -68,26 +69,19 @@
             this.statusStrip.TabIndex = 14;
             this.statusStrip.Text = "statusStrip";
             // 
-            // yStatusLabel
-            // 
-            this.yStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.yStatusLabel.Name = "yStatusLabel";
-            this.yStatusLabel.Size = new System.Drawing.Size(59, 19);
-            this.yStatusLabel.Text = "Y = 0.000";
-            // 
-            // lrStatusLabel
-            // 
-            this.lrStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.lrStatusLabel.Name = "lrStatusLabel";
-            this.lrStatusLabel.Size = new System.Drawing.Size(58, 19);
-            this.lrStatusLabel.Text = "L = 0.000";
-            // 
             // xStatusLabel
             // 
             this.xStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.xStatusLabel.Name = "xStatusLabel";
             this.xStatusLabel.Size = new System.Drawing.Size(55, 19);
             this.xStatusLabel.Text = "X = 0.000";
+            // 
+            // yStatusLabel
+            // 
+            this.yStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.yStatusLabel.Name = "yStatusLabel";
+            this.yStatusLabel.Size = new System.Drawing.Size(59, 19);
+            this.yStatusLabel.Text = "Y = 0.000";
             // 
             // zStatusLabel
             // 
@@ -96,12 +90,12 @@
             this.zStatusLabel.Size = new System.Drawing.Size(59, 19);
             this.zStatusLabel.Text = "Z = 0.000";
             // 
-            // sStatusLabel
+            // lrStatusLabel
             // 
-            this.sStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.sStatusLabel.Name = "sStatusLabel";
-            this.sStatusLabel.Size = new System.Drawing.Size(58, 19);
-            this.sStatusLabel.Text = "S = 0.000";
+            this.lrStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.lrStatusLabel.Name = "lrStatusLabel";
+            this.lrStatusLabel.Size = new System.Drawing.Size(58, 19);
+            this.lrStatusLabel.Text = "L = 0.000";
             // 
             // fStatusLabel
             // 
@@ -109,6 +103,13 @@
             this.fStatusLabel.Name = "fStatusLabel";
             this.fStatusLabel.Size = new System.Drawing.Size(58, 19);
             this.fStatusLabel.Text = "F = 0.000";
+            // 
+            // sStatusLabel
+            // 
+            this.sStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.sStatusLabel.Name = "sStatusLabel";
+            this.sStatusLabel.Size = new System.Drawing.Size(58, 19);
+            this.sStatusLabel.Text = "S = 0.000";
             // 
             // glControl
             // 
@@ -120,11 +121,22 @@
             this.glControl.TabIndex = 17;
             this.glControl.VSync = false;
             // 
+            // progressBar
+            // 
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar.Location = new System.Drawing.Point(0, 529);
+            this.progressBar.MarqueeAnimationSpeed = 20;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(771, 16);
+            this.progressBar.TabIndex = 18;
+            this.progressBar.Value = 100;
+            // 
             // ViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 590);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.glControl);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.trackBar);
@@ -149,5 +161,6 @@
         private System.Windows.Forms.ToolStripStatusLabel fStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel sStatusLabel;
         private OpenTK.GLControl glControl;
+        public System.Windows.Forms.ProgressBar progressBar;
     }
 }

@@ -92,7 +92,7 @@ namespace NCneticCore
             List<FAO.Command> RawCmds = new List<FAO.Command>();
 
             int CurrentBlock = 0;
-            string CurrentLine = line + '\r' + '\n'; ;
+            string CurrentLine = line + '\r' + '\n';
 
             int StartPos = 0;
             int Lengtj = 0;
@@ -106,34 +106,37 @@ namespace NCneticCore
             {
                 if (i < line.Length)
                 {
-                    Lengtj = 0;
-                    StartPos = line.Length;
-                    StringsBuilder = new List<string>();
-                    Cmds = new List<ncLexerLink.CmdType>();
-
-                    lexer.CheckKeysRawoperation(CurrentLine, i, ref StartPos, ref Lengtj, ref StringsBuilder, ref Cmds);
-
-                    for (int j = 0; j < Cmds.Count(); j++)
+                    if (CurrentLine[i] != ' ')
                     {
-                        if (j < StringsBuilder.Count)
+                        Lengtj = 0;
+                        StartPos = line.Length;
+                        StringsBuilder = new List<string>();
+                        Cmds = new List<ncLexerLink.CmdType>();
+
+                        lexer.CheckKeysRawoperation(CurrentLine, i, ref StartPos, ref Lengtj, ref StringsBuilder, ref Cmds);
+
+                        for (int j = 0; j < Cmds.Count(); j++)
                         {
-                            ApplyLink(StringsBuilder[j], l, ref CurrentBlock, Cmds[j], ref CurrentCommand, ref ReferenceCommand, ref CurrentSub);
+                            if (j < StringsBuilder.Count)
+                            {
+                                ApplyLink(StringsBuilder[j], l, ref CurrentBlock, Cmds[j], ref CurrentCommand, ref ReferenceCommand, ref CurrentSub);
+                            }
                         }
-                    }
 
-                    if (Lengtj > 0)
-                    {
-                        i += Lengtj + StartPos - 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                        if (Lengtj > 0)
+                        {
+                            i += Lengtj + StartPos - 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
 
-                    if (i >= line.Length)
-                    {
-                        l += CurrentLine.Take(i).Count(c => c == '\n');
-                        break;
+                        if (i >= line.Length)
+                        {
+                            l += CurrentLine.Take(i).Count(c => c == '\n');
+                            break;
+                        }
                     }
                 }
             }
@@ -725,26 +728,33 @@ namespace NCneticCore
 
             while (startpos < endpos)
             {
-                MatchPos = endpos - startpos;
-                Length = 0;
-                StyleId = 0;
-
-                CheckPatternStyling(line, startpos, ref MatchPos, ref Length, ref StyleId);
-
-                if (Length > 0)
+                if (line[startpos] == ' ')
                 {
-                    if (MatchPos > 0)
-                    {
-                        styleTableList.Add(new int[3] { startpos, MatchPos, -1 });
-                    }
-                    startpos += MatchPos;
-                    styleTableList.Add(new int[3] { startpos, Length, StyleId });
-                    startpos += Length;
+                    startpos++;
                 }
                 else
                 {
-                    styleTableList.Add(new int[3] { startpos, MatchPos, -1 });
-                    startpos += MatchPos;
+                    MatchPos = endpos - startpos;
+                    Length = 0;
+                    StyleId = 0;
+
+                    CheckPatternStyling(line, startpos, ref MatchPos, ref Length, ref StyleId);
+
+                    if (Length > 0)
+                    {
+                        if (MatchPos > 0)
+                        {
+                            styleTableList.Add(new int[3] { startpos, MatchPos, -1 });
+                        }
+                        startpos += MatchPos;
+                        styleTableList.Add(new int[3] { startpos, Length, StyleId });
+                        startpos += Length;
+                    }
+                    else
+                    {
+                        styleTableList.Add(new int[3] { startpos, MatchPos, -1 });
+                        startpos += MatchPos;
+                    }
                 }
             }
 
@@ -823,6 +833,18 @@ namespace NCneticCore
                             cmds = new List<ncLexerLink.CmdType>();
 
                             ls.AddLinks(MatchKey, ref stringbuilder, ref cmds);
+
+                            if (matchpos == 0)
+                            {
+                                if (ls.KeepIfFound)
+                                {
+                                    return;
+                                }
+                                if (length == line.Length)
+                                {
+                                    return;
+                                }
+                            }
                         }
                         else if (MatchKey.Index == matchpos)
                         {
@@ -911,6 +933,7 @@ namespace NCneticCore
                 if (mo.Extract)
                 {
                     MatchCollection MatchExtract = mo.RegexPattern.Matches(matchkey.Value);
+
                     if (MatchExtract.Count > 0)
                     {
                         if (mo.ExtractId < MatchExtract.Count)
