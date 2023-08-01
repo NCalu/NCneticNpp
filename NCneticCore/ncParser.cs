@@ -730,6 +730,7 @@ namespace NCneticCore
             {
                 if (line[startpos] == ' ')
                 {
+                    styleTableList.Add(new int[3] { startpos, 1, -1 });
                     startpos++;
                 }
                 else
@@ -759,6 +760,16 @@ namespace NCneticCore
             }
 
             int[,] styleTable = new int[styleTableList.Count(), 3];
+
+            for (int i = 1; i < styleTableList.Count(); i++)
+            {
+                if (styleTableList[i][2] == styleTableList[i - 1][2])
+                {
+                    styleTableList[i - 1][1] += styleTableList[i][1];
+                    styleTableList.RemoveAt(i);
+                    i--;
+                }
+            }
 
             for (int i = 0; i < styleTableList.Count(); i++)
             {
