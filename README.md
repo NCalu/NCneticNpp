@@ -2,7 +2,7 @@
 
 A Notepad++ plugin to plot gcode files directly in the best code editor.
 <br><br>
-![NCneticNpp](demo.png)
+![NCneticNpp](notepad_gcode.png)
 <br><br>
 
 How it works?
