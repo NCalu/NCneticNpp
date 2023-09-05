@@ -43,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Optimize>false</Optimize>
     <OutputPath>C:\Program Files\Notepad++\plugins\NCneticNpp\</OutputPath>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>0</WarningLevel>

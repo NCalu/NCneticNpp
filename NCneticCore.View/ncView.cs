@@ -1480,11 +1480,7 @@ namespace NCneticCore.View
                     }
                 }
 
-                float z = Math.Max(Math.Abs(max.X - min.X), Math.Abs(max.Y - min.Y));
-                if (opts.ViewSizeY > opts.ViewSizeX)
-                {
-                    z = Math.Max(Math.Abs(max.X - min.X) * (float)opts.ViewSizeY / (float)opts.ViewSizeX, z);
-                }
+                float z = Math.Max(Math.Abs(max.X - min.X) * (float)opts.ViewSizeY / (float)opts.ViewSizeX, Math.Abs(max.Y - min.Y));
 
                 if (double.IsNaN(z) || double.IsInfinity(z))
                 {
@@ -1497,7 +1493,7 @@ namespace NCneticCore.View
                     max = new Vector3(0, 0, 0);
                 }
 
-                newM[3, 3] = z / 2.0f * 1.1f;
+                newM[3, 3] = z / 2.0f * 1.20f;
 
                 Vector4 min4 = new Vector4(min);
                 Vector4 max4 = new Vector4(max);
