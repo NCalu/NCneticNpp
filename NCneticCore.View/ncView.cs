@@ -139,16 +139,17 @@ namespace NCneticCore.View
             ObjCollection.Draw(GlobalProjectionMatrix, GlobalModelMatrix, GlobalViewMatrix, ActiveShader);
             ActiveShader.DisableVertexAttribArrays();
 
-            try
-            {
-                int bufferSize = 0;
-                GL.GetBufferParameter(BufferTarget.ElementArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-                if (ObjCollection.indicedata.Length * sizeof(int) != bufferSize)
-                {
-                    Bind();
-                }
-            }
-            catch { }
+            // TO TEST
+            //try
+            //{
+            //    int bufferSize = 0;
+            //    GL.GetBufferParameter(BufferTarget.ElementArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
+            //    if (ObjCollection.indicedata.Length * sizeof(int) != bufferSize)
+            //    {
+            //        Bind();
+            //    }
+            //}
+            //catch { }
 
             GL.Flush();
             ViewPortUpdate();
