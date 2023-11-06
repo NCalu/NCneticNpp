@@ -95,7 +95,7 @@ namespace NCneticCore
             string ModifiersRegEx = "(?i)(?x)\t# MODIFIERS";
             string AllowWhiteSpacesRegex = "\\s*\t# ALLOW SPACES";
 
-            string DoubleRegex = "\\s*[+-]?[0-9.\\s]+";
+            string DoubleRegex = "[+-]?[0-9.\\s]+";
             //string PositiveDoubleRegex = "[0-9.\\s]+";
             string PositiveIntRegex = "[0-9\\s]+";
             string IDRegex = "[1-9]([0-9]+)?";
@@ -108,7 +108,7 @@ namespace NCneticCore
             {
                 return
                 ModifiersRegEx + "\r\n" +
-                "^" + s + "\r\n" +
+                s + "\r\n" +
                 AllowWhiteSpacesRegex + "\r\n" +
                 DoubleRegex;
             }
@@ -301,7 +301,7 @@ namespace NCneticCore
             {
                 return
                 ModifiersRegEx + "\r\n" +
-                "^" + s0 + "\t# GEOMETRIC FUNCTIONS CHAR" + "\r\n" +
+                s0 + "\t# GEOMETRIC FUNCTIONS CHAR" + "\r\n" +
                 AllowWhiteSpacesRegex + "\r\n" +
                 s1;
             }
