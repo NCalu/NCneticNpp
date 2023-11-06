@@ -126,16 +126,11 @@ namespace NCneticCore
                         if (Lengtj > 0)
                         {
                             i += Lengtj + StartPos - 1;
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                        if (i >= line.Length)
-                        {
-                            l += CurrentLine.Take(i).Count(c => c == '\n');
-                            break;
+                            if (i >= line.Length)
+                            {
+                                l += CurrentLine.Take(i).Count(c => c == '\n');
+                                break;
+                            }
                         }
                     }
                 }
@@ -753,8 +748,8 @@ namespace NCneticCore
                     }
                     else
                     {
-                        styleTableList.Add(new int[3] { startpos, MatchPos, -1 });
-                        startpos += MatchPos;
+                        styleTableList.Add(new int[3] { startpos, 1, -1 });
+                        startpos += 1;
                     }
                 }
             }
