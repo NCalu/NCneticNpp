@@ -2,9 +2,7 @@
 
 A Notepad++ plugin to plot gcode files directly in the best code editor.
 <br><br>
-[<img src="Thumbnail.png" width="600" height="300"/>](https://www.youtube.com/embed/AldBb7LKf30)
-<br><br>
-<img src="notepad_gcode.png" width="600" height="300"/>
+<img src="notepad_gcode.png"/>
 <br><br>
 
 How it works?
@@ -24,6 +22,11 @@ Manual installation
 3. Add the corresponding plugin file: 
     * **32-bit**: C:\Program Files (x86)\Notepad++\plugins\NCneticNpp\NCneticNpp.dll
     * **64-bit**: C:\Program Files\Notepad++\plugins\NCneticNpp\NCneticNpp.dll
+  
+Video
+-------------
+
+[<img src="Thumbnail.png" width="600"/>](https://www.youtube.com/embed/AldBb7LKf30)
 
 Additional information
 ----------------------
