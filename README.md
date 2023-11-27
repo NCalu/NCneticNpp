@@ -4,6 +4,8 @@ A Notepad++ plugin to plot gcode files directly in the best code editor.
 <br><br>
 [<img src="Thumbnail.png" width="600" height="300"/>](https://www.youtube.com/embed/AldBb7LKf30)
 <br><br>
+[<img src="notepad_gcode.png" width="600" height="300"/>]
+<br><br>
 
 How it works?
 -------------
