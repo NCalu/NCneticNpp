@@ -139,17 +139,16 @@ namespace NCneticCore.View
             ObjCollection.Draw(GlobalProjectionMatrix, GlobalModelMatrix, GlobalViewMatrix, ActiveShader);
             ActiveShader.DisableVertexAttribArrays();
 
-            // TO TEST
-            //try
-            //{
-            //    int bufferSize = 0;
-            //    GL.GetBufferParameter(BufferTarget.ElementArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-            //    if (ObjCollection.indicedata.Length * sizeof(int) != bufferSize)
-            //    {
-            //        Bind();
-            //    }
-            //}
-            //catch { }
+            try
+            {
+                int bufferSize = 0;
+                GL.GetBufferParameter(BufferTarget.ElementArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
+                if (ObjCollection.indicedata.Length * sizeof(int) != bufferSize)
+                {
+                    Bind();
+                }
+            }
+            catch { }
 
             GL.Flush();
             ViewPortUpdate();
@@ -190,24 +189,28 @@ namespace NCneticCore.View
                 return;
             }
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vPosition"));
-            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.vertdata.Length * Vector3.SizeInBytes), ObjCollection.vertdata, BufferUsageHint.StaticDraw);
-            GL.VertexAttribPointer(ActiveShader.GetAttribute("vPosition"), 3, VertexAttribPointerType.Float, false, 0, 0);
+            try
+            {
+                GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vPosition"));
+                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.vertdata.Length * Vector3.SizeInBytes), ObjCollection.vertdata, BufferUsageHint.StaticDraw);
+                GL.VertexAttribPointer(ActiveShader.GetAttribute("vPosition"), 3, VertexAttribPointerType.Float, false, 0, 0);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vNormal"));
-            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.normdata.Length * Vector3.SizeInBytes), ObjCollection.normdata, BufferUsageHint.StaticDraw);
-            GL.VertexAttribPointer(ActiveShader.GetAttribute("vNormal"), 3, VertexAttribPointerType.Float, false, 0, 0);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vNormal"));
+                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.normdata.Length * Vector3.SizeInBytes), ObjCollection.normdata, BufferUsageHint.StaticDraw);
+                GL.VertexAttribPointer(ActiveShader.GetAttribute("vNormal"), 3, VertexAttribPointerType.Float, false, 0, 0);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vColor"));
-            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.coldata.Length * Vector3.SizeInBytes), ObjCollection.coldata, BufferUsageHint.StaticDraw);
-            GL.VertexAttribPointer(ActiveShader.GetAttribute("vColor"), 3, VertexAttribPointerType.Float, true, 0, 0);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, ActiveShader.GetBuffer("vColor"));
+                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(ObjCollection.coldata.Length * Vector3.SizeInBytes), ObjCollection.coldata, BufferUsageHint.StaticDraw);
+                GL.VertexAttribPointer(ActiveShader.GetAttribute("vColor"), 3, VertexAttribPointerType.Float, true, 0, 0);
 
-            GL.UseProgram(ActiveShader.ProgramID);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(ObjCollection.indicedata.Length * sizeof(int)), ObjCollection.indicedata, BufferUsageHint.StaticDraw);
+                GL.UseProgram(ActiveShader.ProgramID);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+                GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(ObjCollection.indicedata.Length * sizeof(int)), ObjCollection.indicedata, BufferUsageHint.StaticDraw);
 
-            GL.Uniform1(ActiveShader.GetUniform("sWidth"), Options.ViewSizeX);
-            GL.Uniform1(ActiveShader.GetUniform("sHeight"), Options.ViewSizeY);
+                GL.Uniform1(ActiveShader.GetUniform("sWidth"), Options.ViewSizeX);
+                GL.Uniform1(ActiveShader.GetUniform("sHeight"), Options.ViewSizeY);
+            }
+            catch { }
         }
 
         private void ViewPortUpdate()

@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Reflection.Emit;
 using OpenTK.Input;
 using OpenTK;
+using System.Diagnostics;
 
 namespace NCneticNpp
 {
@@ -324,14 +325,26 @@ namespace NCneticNpp
             switch (cam)
             {
                 case 1:
-                    opts.DefaultView = ncViewOptions.CameraView.XY;
+                    opts.DefaultView = ncViewOptions.CameraView.xYZ;
                     break;
 
                 case 2:
-                    opts.DefaultView = ncViewOptions.CameraView.XZ;
+                    opts.DefaultView = ncViewOptions.CameraView.xyZ;
                     break;
 
                 case 3:
+                    opts.DefaultView = ncViewOptions.CameraView.XyZ;
+                    break;
+
+                case 4:
+                    opts.DefaultView = ncViewOptions.CameraView.XY;
+                    break;
+
+                case 5:
+                    opts.DefaultView = ncViewOptions.CameraView.XZ;
+                    break;
+
+                case 6:
                     opts.DefaultView = ncViewOptions.CameraView.YZ;
                     break;
 

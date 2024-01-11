@@ -74,7 +74,9 @@ namespace NCneticNpp
             iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
 
             styling = (Win32.GetPrivateProfileInt("NCNETIC", "Styling", 1, iniFilePath) != 0);
+            Win32.WritePrivateProfileString("NCNETIC", "Styling", styling ? "1" : "0", iniFilePath);
             cam = Win32.GetPrivateProfileInt("NCNETIC", "Camera", 0, iniFilePath);
+            Win32.WritePrivateProfileString("NCNETIC", "Camera", cam.ToString(), iniFilePath);
 
             PluginBase.SetCommand(0, "Plot/Refresh", PlotFunction);
             PluginBase.SetCommand(1, "---", null);
@@ -85,19 +87,31 @@ namespace NCneticNpp
 
             viewchk = false;
             if (cam == 0) { viewchk = true; }
-            PluginBase.SetCommand(4, "ISO", ChangeViewState_iso, viewchk);
+            PluginBase.SetCommand(4, "ISO1", ChangeViewState_iso1, viewchk);
 
             viewchk = false;
             if (cam == 1) { viewchk = true; }
-            PluginBase.SetCommand(5, "XY", ChangeViewState_xy, viewchk);
+            PluginBase.SetCommand(5, "ISO2", ChangeViewState_iso2, viewchk);
 
             viewchk = false;
             if (cam == 2) { viewchk = true; }
-            PluginBase.SetCommand(6, "XZ", ChangeViewState_xz, viewchk);
+            PluginBase.SetCommand(6, "ISO3", ChangeViewState_iso3, viewchk);
 
             viewchk = false;
             if (cam == 3) { viewchk = true; }
-            PluginBase.SetCommand(7, "YZ", ChangeViewState_yz, viewchk);
+            PluginBase.SetCommand(7, "ISO4", ChangeViewState_iso4, viewchk);
+
+            viewchk = false;
+            if (cam == 4) { viewchk = true; }
+            PluginBase.SetCommand(8, "XY", ChangeViewState_xy, viewchk);
+
+            viewchk = false;
+            if (cam == 5) { viewchk = true; }
+            PluginBase.SetCommand(9, "XZ", ChangeViewState_xz, viewchk);
+
+            viewchk = false;
+            if (cam == 6) { viewchk = true; }
+            PluginBase.SetCommand(10, "YZ", ChangeViewState_yz, viewchk);
 
         }
 
@@ -131,27 +145,45 @@ namespace NCneticNpp
             Win32.WritePrivateProfileString("NCNETIC", "Styling", styling ? "1" : "0", iniFilePath);
         }
 
-        internal static void ChangeViewState_iso()
+        internal static void ChangeViewState_iso1()
         {
             cam = 0;
             ChangeViewState();
         }
 
-        internal static void ChangeViewState_xy()
+        internal static void ChangeViewState_iso2()
         {
             cam = 1;
             ChangeViewState();
         }
 
-        internal static void ChangeViewState_xz()
+        internal static void ChangeViewState_iso3()
         {
             cam = 2;
             ChangeViewState();
         }
 
-        internal static void ChangeViewState_yz()
+        internal static void ChangeViewState_iso4()
         {
             cam = 3;
+            ChangeViewState();
+        }
+
+        internal static void ChangeViewState_xy()
+        {
+            cam = 4;
+            ChangeViewState();
+        }
+
+        internal static void ChangeViewState_xz()
+        {
+            cam = 5;
+            ChangeViewState();
+        }
+
+        internal static void ChangeViewState_yz()
+        {
+            cam = 6;
             ChangeViewState();
         }
 
@@ -161,6 +193,9 @@ namespace NCneticNpp
             Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[5]._cmdID, 0x00000000); // MF_UNCHECKED
             Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[6]._cmdID, 0x00000000); // MF_UNCHECKED
             Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[7]._cmdID, 0x00000000); // MF_UNCHECKED
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[8]._cmdID, 0x00000000); // MF_UNCHECKED
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[9]._cmdID, 0x00000000); // MF_UNCHECKED
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[10]._cmdID, 0x00000000); // MF_UNCHECKED
 
             switch (cam)
             {
@@ -174,6 +209,18 @@ namespace NCneticNpp
 
                 case 3:
                     Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[7]._cmdID, 0x00000008); // MF_CHECKED
+                    break;
+
+                case 4:
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[8]._cmdID, 0x00000008); // MF_CHECKED
+                    break;
+
+                case 5:
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[9]._cmdID, 0x00000008); // MF_CHECKED
+                    break;
+
+                case 6:
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[10]._cmdID, 0x00000008); // MF_CHECKED
                     break;
 
                 case 0:
