@@ -13,7 +13,7 @@ Open a numerical control file and use the **Plot/Refresh** command of the plugin
 Manual installation
 -----------------
 
-1. Download the plugin: https://www.ncnetic.com/NCneticNpp.zip
+1. Download the plugin from the NCnetic website: https://www.ncnetic.com/notepad-gcode-plugin
 
 2. Locate the Notepad++ plugins folder: 
     * **32-bit**: C:\Program Files (x86)\Notepad++\plugins 
