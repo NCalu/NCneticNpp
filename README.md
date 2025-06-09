@@ -13,7 +13,7 @@ Open a numerical control file and use the **Plot/Refresh** command of the plugin
 Manual installation
 -----------------
 
-1. Clone or download the solution, then compile the NCneticNpp.dll
+1. Download the plugin: https://www.ncnetic.com/NCneticNppDemoPlugin.zip
 
 2. Locate the Notepad++ plugins folder: 
     * **32-bit**: C:\Program Files (x86)\Notepad++\plugins 
