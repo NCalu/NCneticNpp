@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
+    <AssemblyName>NCneticCore.View</AssemblyName>
+    <RootNamespace>NCneticCore.View</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NCneticCore.Net6\NCneticCore.Net6.csproj" />
+    <PackageReference Include="OpenTK" Version="3.1.0" />
+    <PackageReference Include="OpenTK.GLControl" Version="3.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NCneticCore.View\CAO.cs" Link="CAO.cs" />
+    <Compile Include="..\NCneticCore.View\ncView.cs" Link="ncView.cs" />
+    <Compile Include="..\NCneticCore.View\VSFS.cs" Link="VSFS.cs" />
+  </ItemGroup>
+</Project>

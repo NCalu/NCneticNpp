@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
+    <AssemblyName>NCneticCore</AssemblyName>
+    <RootNamespace>NCneticCore</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\NCneticCore\FAO.cs" Link="FAO.cs" />
+    <Compile Include="..\NCneticCore\ncJob.cs" Link="ncJob.cs" />
+    <Compile Include="..\NCneticCore\ncMachine.cs" Link="ncMachine.cs" />
+    <Compile Include="..\NCneticCore\ncParser.cs" Link="ncParser.cs" />
+    <Compile Include="..\NCneticCore\UTIL.cs" Link="UTIL.cs" />
+  </ItemGroup>
+</Project>
